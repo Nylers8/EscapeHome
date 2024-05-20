@@ -15,11 +15,6 @@ void House::addRoom(Room& _room)
     allRoom.push_back(_room);
 }
 
-void House::changeCurrentRoom(Room& _room)
-{
-    currentRoom = &_room;
-}
-
 short House::getSize()
 {
     return allRoom.size();
@@ -52,9 +47,4 @@ Room& House::getRoom(const string& _name)
     }
 
     return *(new Room);
-}
-
-Room& House::getCurrentRoom()
-{
-    return *currentRoom;
 }

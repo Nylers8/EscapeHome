@@ -7,6 +7,7 @@
 
 #include "Item.h"
 #include "Monster.h"
+#include "printText.h"
 
 using std::cout;
 using std::endl;
@@ -36,8 +37,6 @@ public:
 	void action();
 
 private:
-
-	void printTextAction();
 
 	string name;
 	Monster* monsterptr;

@@ -62,6 +62,79 @@ string Room::getName()
 }
 
 
+Room& Room::getRoomFromPaths(short _id)
+{
+	short size = paths.size();
+	if (size <= 0)
+	{
+		return *new Room;
+	}
+
+	if (_id > size)
+	{
+		return paths[size - 1];
+	}
+
+	return paths[_id];
+}
+
+Room& Room::getRoomFromPaths(string _name)
+{
+	short size = paths.size();
+	for (short i = 0; i < size; i++)
+	{
+		if (paths[i].get().getName() == _name) 
+		{
+			return paths[i];
+		}
+	}
+
+	return *new Room;
+}
+
+Found& Room::getFound(short _id)
+{
+	short size = founds.size();
+	if (size <= 0)
+	{
+		return *new Found;
+	}
+
+	if (_id > size)
+	{
+		return founds[size - 1];
+	}
+
+	return founds[_id];
+}
+
+Found& Room::getFound(string _name)
+{
+	short size = founds.size();
+	for (short i = 0; i < size; i++)
+	{
+		if (founds[i].getName() == _name)
+		{
+			return founds[i];
+		}
+	}
+
+	return *new Found;
+}
+
+short Room::getSizePaths()
+{
+	return paths.size();
+}
+
+short Room::getSizeFounds()
+{
+	return founds.size();
+}
+
+
+
+
 void Room::addPath(Room& _room)
 {
 	paths.push_back(_room);
@@ -93,6 +166,21 @@ void Room::setText(const string& _text)
 	this->text = _text;
 }
 
+void Room::foundAction(short _id)
+{
+	if (_id >= founds.size())
+		return;
+	if (_id < 0)
+		return;
+
+	founds[_id].action();
+
+	if (founds.size() == 1)
+		founds.clear();
+	else
+		founds.erase(founds.begin() + _id);
+}
+
 
 bool Room::checkPath(string _name)
 {
@@ -113,8 +201,6 @@ bool Room::checkPath(string _name)
 
 void Room::printActions()
 {
-	cout << "ID:" << id << endl;
-
 	if (text != "")
 	{
 		cout << text << endl;
@@ -126,36 +212,36 @@ void Room::printActions()
 		{
 		case 0:
 		{
-			cout << "Вы находитесь в \'" << name << '\'' << endl;
+			printText("Вы находитесь в \'" + name + '\'');
 			break;
 		}
 
 		case 1:
 		{
-			cout << "Вы внимательно осмтраиваетесь в \'" << name << '\'' << endl;
+			printText("Вы внимательно осмтраиваетесь в \'" + name + '\'');
 			break;
 		}
 
 		case 2:
 		{
-			cout << "Находясь в \'" << name << "\' вы ощущаете на себе пристальный взгляд.." << endl;
+			printText("Находясь в \'" + name + "\' вы ощущаете на себе пристальный взгляд..");
 			break;
 		}
 
 		case 3:
 		{
-			cout << "Вы ощущаете сТрАх, находясь в \'" << name << "\'..";
+			printText("Вы ощущаете сТрАх, находясь в \'" + name + "\'..");
 			break;
 		}
 
 		default:
 		{
-			cout << "Вы чувствуете себя хакером.. \'" << name << '\'' << endl;
+			printText("Вы чувствуете себя хакером.. \'" + name + '\'');
 			break;
 		}
 		}
 	}
-	cout << endl;
+	cout << endl << endl;
 
 	short size = paths.size();
 	short j = 1;

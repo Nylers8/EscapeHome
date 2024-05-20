@@ -102,35 +102,13 @@ string& Found::getName()
 
 void Found::action()
 {
-	printTextAction();
+	printText(textAction);
 	itemptr->pickup();
 
 	short randNum = rand() % 10;
 	if (!randNum)
 	{
 		monsterptr->attack();
-	}
-}
-
-void Found::printTextAction()
-{
-	short delayBase = 500;
-	short delayChar = 40;
-
-	short size = textAction.size();
-	short count = 0;
-
-	for (short i = 0; i < size; i++, count++)
-	{
-		Sleep(delayChar);
-		cout << textAction[i];
-		
-
-		if (textAction[i] == '\n')
-		{
-			Sleep(delayBase + delayChar * count / 2);
-			count = 0;
-		}
 	}
 }
 

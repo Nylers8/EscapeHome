@@ -12,6 +12,7 @@ using std::string;
 using std::vector;
 
 #include "Found.h"
+#include "printText.h"
 
 class House;
 
@@ -21,15 +22,26 @@ public:
 	Room();
 	Room(House& _house, string _name);
 	Room(House& _house, string _name, std::initializer_list<string> _rooms);
-	Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open);
+	Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open = true);
 
 
 	short getId();
 	string getName();
 
+	Room& getRoomFromPaths(short _id);
+	Room& getRoomFromPaths(string _name);
+	Found& getFound(short _id);
+	Found& getFound(string _name);
+
+	short getSizePaths();
+	short getSizeFounds();
+
+
 	void addPath(Room& _room);
 	void addPath(std::initializer_list<string> _rooms);
 	void setText(const string& _text);
+
+	void foundAction(short _id);
 
 	bool checkPath(string _name);
 

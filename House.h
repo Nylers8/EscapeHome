@@ -22,17 +22,13 @@ public:
 
 
 	void addRoom(Room& _room);
-	void changeCurrentRoom(Room& _room);
 
 	short getSize();
 	Room& getRoom(const short _id);
 	Room& getRoom(const string& _name);
-	Room& getCurrentRoom();
 
 private:
 
 	vector<std::reference_wrapper<Room>> allRoom{};
-
-	Room* currentRoom;
 };
 

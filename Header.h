@@ -7,6 +7,7 @@
 
 #include "Room.h"
 #include "House.h"
+#include "Player.h"
 
 using std::cout;
 using std::endl;
