@@ -21,12 +21,14 @@ public:
 	Room();
 	Room(House& _house, string _name);
 	Room(House& _house, string _name, std::initializer_list<string> _rooms);
+	Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open);
 
 
 	short getId();
 	string getName();
 
 	void addPath(Room& _room);
+	void addPath(std::initializer_list<string> _rooms);
 	void setText(const string& _text);
 
 	bool checkPath(string _name);
@@ -34,12 +36,13 @@ public:
 	// ¬ыводит доступные пути и места обыска
 	void printActions();
 
+	bool open = true;
 
 private:
 	string name;
+	string text = "";
 	short id;
 
-	string text = "";
 
 	House* house;
 

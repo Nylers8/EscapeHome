@@ -19,16 +19,14 @@ Room::Room(House& _house, string _name)
 
 	this->name = _name;
 
-	// Поиск и добавление в доступные пути тех, у кого есть путь к комнате
-	// Проще говорят связывает двери/пути
-	short size = _house.getSize();
+
+	// Случайнные объеты
+	short size = rand() % 3;
 	for (short i = 0; i < size; i++)
 	{
-		if (_house[i].checkPath(name))
-		{
-			paths.push_back(_house[i]);
-		}
+		founds.push_back(Found::getRandomFound());
 	}
+
 
 	house = &_house;
 	_house.addRoom(*this);
@@ -36,27 +34,22 @@ Room::Room(House& _house, string _name)
 
 Room::Room(House& _house, string _name, std::initializer_list<string> _rooms) : Room(_house, _name)
 {
-	// Добавляет введённые пути
-	for (string r : _rooms)
-	{
-		paths.push_back(_house[r]);
+	addPath(_rooms);
+}
 
-		short size = paths.size();
-		for (short i = 0; i < size; i++)
-		{
-			if (!paths[i].get().checkPath(name))
-			{
-				paths[i].get().addPath(*this);
-			}
-		}
+Room::Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open) : Room(_house, _name)
+{
+	addPath(_rooms);
+
+	founds.clear();
+	for  (Found f : _founds)
+	{
+		this->founds.push_back(f);
 	}
 
-
-	// Случайнные объеты
-	//////////////////////////////
-	//////////////////////////////
-
+	this->open = _open;
 }
+
 
 short Room::getId()
 {
@@ -68,15 +61,38 @@ string Room::getName()
 	return name;
 }
 
+
 void Room::addPath(Room& _room)
 {
 	paths.push_back(_room);
+}
+
+void Room::addPath(std::initializer_list<string> _rooms)
+{
+	for (string r : _rooms)
+	{
+		paths.push_back((*house)[r]);
+
+		// Ищет тех, в кого может зайти, а они в него не могут
+		// Проще говоря, связывает двери, чтобы в неё можно было войти и выйти
+		short size = paths.size();
+		for (short i = 0; i < size; i++)
+		{
+			if (!paths[i].get().checkPath(name))
+			{
+				paths[i].get().addPath(*this);
+			}
+		}
+	}
+
+
 }
 
 void Room::setText(const string& _text)
 {
 	this->text = _text;
 }
+
 
 bool Room::checkPath(string _name)
 {
@@ -151,6 +167,6 @@ void Room::printActions()
 	size = founds.size();
 	for (short i = 0; i < size; i++, j++)
 	{
-		cout << j << " - обыскать" << endl;
+		cout << j << " - обыскать \'" << founds[i].getName() << '\'' << endl;
 	}
 }
