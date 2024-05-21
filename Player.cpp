@@ -1,8 +1,8 @@
 #include "Player.h"
 
-Player::Player(short _hp, House& _currentHouse, Room& _currentRoom)
+Player::Player(string _name, short _hp, House& _currentHouse, Room& _currentRoom)
 {
-	name = "Мистер Ки";
+	name = _name;
 
 	this->maxHp = _hp;
 	this->hp = _hp;
@@ -14,7 +14,7 @@ Player::Player(short _hp, House& _currentHouse, Room& _currentRoom)
 	this->armor = nullptr;
 }
 
-Player::Player(short _hp, House& _currentHouse, Room& _currentRoom, Weapon& _weapon, Armor& _armor) : Player(_hp, _currentHouse, _currentRoom)
+Player::Player(string _name, short _hp, House& _currentHouse, Room& _currentRoom, Weapon& _weapon, Armor& _armor) : Player(_name, _hp, _currentHouse, _currentRoom)
 {
 	this->weapon = &_weapon;
 	this->armor = &_armor;

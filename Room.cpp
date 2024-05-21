@@ -266,6 +266,7 @@ void Room::printActions()
 	{
 		cout << j << " - " << paths[i].get().getName() << endl;
 	}
+	cout << endl;
 
 	size = founds.size();
 	for (short i = 0; i < size; i++, j++)

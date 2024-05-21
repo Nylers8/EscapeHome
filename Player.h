@@ -22,8 +22,8 @@ class Player
 {
 public:
 
-	Player(short _hp, House& _currentHouse, Room& _currentRoom);
-	Player(short _hp, House& _currentHouse, Room& _currentRoom, Weapon& _weapon, Armor& _armor);
+	Player(string _name, short _hp, House& _currentHouse, Room& _currentRoom);
+	Player(string _name, short _hp, House& _currentHouse, Room& _currentRoom, Weapon& _weapon, Armor& _armor);
 	Player();
 
 	Item& operator[](short _id);
