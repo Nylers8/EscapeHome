@@ -242,7 +242,7 @@ short Player::request()
 
 	} while (0 >= act && act < size-1);
 	
-	cout << endl;
+	system("cls");
 
 	return act;
 }

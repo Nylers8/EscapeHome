@@ -121,7 +121,7 @@ void Found::action()
 	itemptr->pickup();
 	itemptr = new Item();
 
-	short randNum = rand() % 10;
+	short randNum = rand() % 5;
 	if (!randNum)
 	{
 		monsterptr->attack();
