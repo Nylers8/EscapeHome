@@ -1,5 +1,6 @@
 #include "Room.h"
 #include "House.h"
+#include "ItemHeins.h"
 
 short Room::count = 0;
 
@@ -10,6 +11,7 @@ Room::Room()
 	id = 0;
 	paths = {};
 	founds = {};
+	keyRoom = nullptr;
 }
 
 Room::Room(House& _house, string _name)
@@ -30,6 +32,7 @@ Room::Room(House& _house, string _name)
 
 	house = &_house;
 	_house.addRoom(*this);
+	keyRoom = nullptr;
 }
 
 Room::Room(House& _house, string _name, std::initializer_list<string> _rooms) : Room(_house, _name)
@@ -37,18 +40,22 @@ Room::Room(House& _house, string _name, std::initializer_list<string> _rooms) : 
 	addPath(_rooms);
 }
 
-Room::Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open) : Room(_house, _name)
+Room::Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open, Key* _keyRoom, string _textClosed) : Room(_house, _name)
 {
 	addPath(_rooms);
 
 	founds.clear();
-	for  (Found f : _founds)
+	for (Found f : _founds)
 	{
 		this->founds.push_back(f);
 	}
 
 	this->open = _open;
+	keyRoom = _keyRoom;
+	textClosed = _textClosed;
 }
+
+
 
 
 short Room::getId()
@@ -130,6 +137,16 @@ short Room::getSizePaths()
 short Room::getSizeFounds()
 {
 	return founds.size();
+}
+
+Key& Room::getKey()
+{
+	return *keyRoom;
+}
+
+string& Room::getTextClosed()
+{
+	return textClosed;
 }
 
 
@@ -255,4 +272,5 @@ void Room::printActions()
 	{
 		cout << j << " - обыскать \'" << founds[i].getName() << '\'' << endl;
 	}
+	cout << endl << j << " - открыть инвентарь" << endl;
 }

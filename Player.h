@@ -6,6 +6,7 @@
 
 #include "House.h"
 #include "Item.h"
+#include "ItemHeins.h"
 
 using std::cout;
 using std::endl;
@@ -25,20 +26,35 @@ public:
 	Player(short _hp, House& _currentHouse, Room& _currentRoom, Weapon& _weapon, Armor& _armor);
 	Player();
 
+	Item& operator[](short _id);
+	Item& operator[](string _name);
 
+
+	void changeHp(const short _hp);
+	void addItem(Item& item);
+
+	string& getName();
+	short getHp();
+	short getMaxHp();
+
+	bool searchItem(string& _name);
+	void eraseItem(short _id);
 	void action();
+
+	bool life = true;
 
 private:
 
 	void goToRoom(short _id);
 	void goToFound(short _id);
-	void attackMonster();
 	void useItem(short _id);
+	void openInventory();
 
 	short request();
 
 	string name;
 
+	short maxHp;
 	short hp;
 
 	Weapon* weapon;

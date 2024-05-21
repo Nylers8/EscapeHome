@@ -1,21 +1,7 @@
 #pragma once
 
 #include "Header.h"
-
-class A
-{
-public:
-	virtual void action() = 0;
-};
-
-class B : public A
-{
-public:
-	void action()override
-	{
-		cout << "Прыгнул со скалы!" << endl;
-	}
-};
+#include <typeinfo>
 
 int main()
 {
@@ -23,14 +9,14 @@ int main()
 	srand(time(NULL));
 
 	House h1;
-	House h2;
+	
+	Item& ptr = Key::getKey("ржавый ключ");
 
-	Room spal1(h1, "спальня", {}, {Found::getFound(0), Found::getFound(1)});
-	Room vanna1(h1, "ванна");
-	Room toiler1(h1, "туалет");
-	Room cor1(h1, "коридор", { "спальня", "ванна"}, {Found::getFound(0)}, true);
+	Room spal(h1, "спальня", {}, { *new Found("Старая коробка", "вы подошли к старой коробке\n", Key::getKey("ржавый ключ")), Found::getRandomFound()});
+	Room van(h1, "ванна", {}, {}, false, &Key::getKey("ржавый ключ"), "нужен ржавый ключ");
+	Room cor(h1, "коридор", { "спальня", "ванна" });
 
-	Player pl(100, h1, spal1);
+	Player pl(100, h1, spal);
 	while (true)
 	{
 		pl.action();

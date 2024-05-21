@@ -34,6 +34,8 @@ public:
 
 
 	string& getName();
+	Item& getItem();
+	Monster& getMonster();
 	void action();
 
 private:

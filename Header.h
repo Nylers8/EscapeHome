@@ -5,6 +5,8 @@
 #include <vector>
 #include <ctime>
 
+#include "Item.h"
+#include "ItemHeins.h"
 #include "Room.h"
 #include "House.h"
 #include "Player.h"

@@ -98,12 +98,28 @@ string& Found::getName()
 	return name;
 }
 
+Item& Found::getItem()
+{
+	return *itemptr;
+}
+
+Monster& Found::getMonster()
+{
+	return *monsterptr;
+}
+
 
 
 void Found::action()
 {
+	system("cls");
 	printText(textAction);
+	printText("\t" + itemptr->getName());
+	Sleep(300);
+	system("cls");
+
 	itemptr->pickup();
+	itemptr = new Item();
 
 	short randNum = rand() % 10;
 	if (!randNum)

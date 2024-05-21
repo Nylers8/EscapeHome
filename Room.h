@@ -15,6 +15,7 @@ using std::vector;
 #include "printText.h"
 
 class House;
+class Key;
 
  class Room
 {
@@ -22,7 +23,7 @@ public:
 	Room();
 	Room(House& _house, string _name);
 	Room(House& _house, string _name, std::initializer_list<string> _rooms);
-	Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open = true);
+	Room(House& _house, string _name, std::initializer_list<string> _rooms, std::initializer_list<Found> _founds, bool _open = true, Key* _keyroom = nullptr, string _textClosed = "");
 
 
 	short getId();
@@ -35,6 +36,9 @@ public:
 
 	short getSizePaths();
 	short getSizeFounds();
+
+	Key& getKey();
+	string& getTextClosed();
 
 
 	void addPath(Room& _room);
@@ -53,10 +57,12 @@ public:
 private:
 	string name;
 	string text = "";
+	string textClosed;
 	short id;
 
 
 	House* house;
+	Key* keyRoom;
 
 	vector<std::reference_wrapper<Room>> paths{};
 	vector<Found> founds{};
